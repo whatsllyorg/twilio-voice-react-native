@@ -56,7 +56,7 @@ public class VoiceApplicationProxy {
     context = reactNativeHost.getAssociatedApplication();
   }
   public void onCreate() {
-    logger.debug("onCreate(..) invoked");
+    logger.debug("onCreate(..) whatslly-version-new invoked");
     // construct JS event engine
     jsEventEmitter = new JSEventEmitter();
     // construct notification channels
