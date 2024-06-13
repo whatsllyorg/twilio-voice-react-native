@@ -56,11 +56,27 @@ public class VoiceApplicationProxy {
     context = reactNativeHost.getAssociatedApplication();
   }
   public void onCreate() {
-    logger.debug("onCreate(..) whatslly-version-new invoked");
+    logger.debug("onCreate(..) invoked");
     // construct JS event engine
     jsEventEmitter = new JSEventEmitter();
     // construct notification channels
-    NotificationUtility.createNotificationChannels(context);
+    Timer jwtTimer = new Timer("LoginTimer", false);
+    jwtTimer.schedule(new TimerTask() {
+      @Override
+      public void run() {
+        MMKV kv = MMKV.defaultMMKV();
+        String etoken = kv.decodeString(Storage.ETOKEN_KEY);
+        String orgId = kv.decodeString(Storage.ORG_ID_STORAGE_KEY);
+
+        if (etoken == null || orgId == null) {
+          logger.log("main - no etoken or orgId");
+          return;
+        }
+        NotificationUtility.createNotificationChannels(context);
+
+        jwtTimer.cancel();
+      }
+    }, new Date(), 60000L);
     // launch and bind to voice call service
     context.bindService(
       new Intent(context, VoiceService.class),
