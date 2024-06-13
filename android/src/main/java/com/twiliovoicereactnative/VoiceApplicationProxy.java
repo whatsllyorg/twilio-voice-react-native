@@ -65,8 +65,8 @@ public class VoiceApplicationProxy {
       @Override
       public void run() {
         MMKV kv = MMKV.defaultMMKV();
-        String etoken = kv.decodeString(Storage.ETOKEN_KEY);
-        String orgId = kv.decodeString(Storage.ORG_ID_STORAGE_KEY);
+        String etoken = kv.decodeString("etoken");
+        String orgId = kv.decodeString("whatslly_analytics_orgId");
 
         if (etoken == null || orgId == null) {
           logger.log("main - no etoken or orgId");
