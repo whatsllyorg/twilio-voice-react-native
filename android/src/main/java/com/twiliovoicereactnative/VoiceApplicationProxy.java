@@ -2,11 +2,8 @@ package com.twiliovoicereactnative;
 
 import static com.twiliovoicereactnative.CallRecordDatabase.CallRecord;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.Application;
 import android.content.ComponentName;
@@ -17,7 +14,6 @@ import android.os.IBinder;
 
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.tencent.mmkv.MMKV;
 
 public class VoiceApplicationProxy {
   private static final SDKLog logger = new SDKLog(VoiceApplicationProxy.class);
@@ -63,24 +59,6 @@ public class VoiceApplicationProxy {
     logger.debug("onCreate(..) invoked");
     // construct JS event engine
     jsEventEmitter = new JSEventEmitter();
-    // construct notification channels
-    Timer jwtTimer = new Timer("LoginTimer", false);
-    jwtTimer.schedule(new TimerTask() {
-      @Override
-      public void run() {
-        MMKV kv = MMKV.defaultMMKV();
-        String etoken = kv.decodeString("etoken");
-        String orgId = kv.decodeString("whatslly_analytics_orgId");
-
-        if (etoken == null || orgId == null) {
-          logger.log("main - no etoken or orgId");
-          return;
-        }
-        NotificationUtility.createNotificationChannels(context);
-
-        jwtTimer.cancel();
-      }
-    }, new Date(), 60000L);
     // launch and bind to voice call service
     context.bindService(
       new Intent(context, VoiceService.class),
