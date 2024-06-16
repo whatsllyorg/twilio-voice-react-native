@@ -54,6 +54,7 @@ android {
     // for buildconfig construction
     buildConfig true
   }
+  buildToolsVersion '34.0.0'
 }
 
 repositories {
