@@ -2,12 +2,12 @@ buildscript {
   ext.versions = [
     'java'               : JavaVersion.VERSION_11,
     'androidGradlePlugin': '7.4.2',
-    'googleServices'     : '4.3.10',
+    'googleServices'     : '4.4.2',
     'voiceAndroid'       : '6.6.1',
     'androidxCore'       : '1.10.1',
     'androidxLifecycle'  : '2.2.0',
     'audioSwitch'        : '1.1.8',
-    'firebaseMessaging'  : '23.4.0'
+    'firebaseMessaging'  : '24.0.0'
   ]
   if (project == rootProject) {
     repositories {
